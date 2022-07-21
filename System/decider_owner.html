@@ -1,0 +1,57 @@
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+
+swal("What do you want to do?", {
+  buttons: {
+   
+  catch: {
+         text: "Create Company",
+      value: "comp",
+     
+    
+    },
+      Home: true,
+    
+    catch: {
+         text: "Create Company",
+      value: "comp",
+     
+    
+    },
+    
+     defeat: {
+       text: "Create Customer",
+      value: "cus",
+    }
+   
+  }
+})
+
+
+.then((value) => {
+  switch (value) {
+ 
+ 
+      
+    case "comp":
+     window.location.assign("create_local_company_owner.php")
+      break;
+      
+        case "cus":
+      window.location.assign("create_customer_owner.php")
+      break;
+ 
+ 
+    default:
+   window.location.assign("owner_dashboard.php")
+  }
+});
+
+});
+
+ 
+ </script>

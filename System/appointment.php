@@ -1,0 +1,515 @@
+ <?php
+ session_start();
+include('header.php');
+
+require_once "db_connection.php";
+if(isset($_SESSION['user_id'])=="") {
+header("Location: login.php");
+}
+
+
+
+if (isset($_POST['submit'])) {
+	
+
+		
+$user = $_POST['user'];
+$companyname = $_POST['company'];
+$appointment =$_POST['name'];
+
+$date = $_POST['date'];
+$time =$_POST['time'];
+
+$clientname =$_POST['clientname'];
+
+$filledby=$_SESSION['user_name'];
+		
+$sql ="INSERT INTO appointments (appointment, company, date, time,user,clientname) VALUES ('$appointment', '$companyname', '$date', '$time', '$user', '$clientname')";
+
+$result = $conn->query($sql);
+
+
+if ($result === TRUE) {
+    
+    
+$sqll ="INSERT INTO client_form (appointmentname,filledby) VALUES ('$appointment','$filledby')";
+
+$resultt = $conn->query($sqll);  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+}
+?>
+
+ 
+ 
+   <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Create Appointment
+            
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Appointments</a></li>
+            <li class="active">Create Appointment</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+		
+          <div class="row">
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+</style>
+<body>
+
+<form id="regForm" action="#" method="post">
+
+  <!-- One "tab" for each step in the form: -->
+  <div class="tab"> <p style="font-size:1.2em;">Appointment Name</p>
+    
+                       
+                       
+                       	
+					
+					
+					
+					   <!-- text input -->
+                    <div class="form-group">
+                     
+                      <input required  type="text" name="name" class="form-control" placeholder="Enter Appointment Subject..."/>
+                    </div>
+                 		
+	   <!-- text input -->
+                    <div class="form-group">
+                     
+                      <input required  type="text" name="clientname" class="form-control" placeholder="Enter Client Name..."/>
+                    </div>
+                 		
+
+
+
+
+                     
+  </div>
+    <div class="tab"> Company and User
+    
+      
+
+
+			
+<?php	
+		
+		
+		
+$sql ="SELECT * FROM office WHERE DEL='0'";
+		$result = $conn->query($sql);
+
+ 
+ 
+ ?>
+ <select id="first" name="company">
+ 		<option>----Select Company----</option>
+		<?php
+	
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+	  
+	  
+	  
+  ?> <option><?php echo $row["companyname"];?></option>
+   <?php
+   
+   
+  }
+ 
+$conn->close();
+		
+	
+ 
+}	
+		
+?>	
+
+</select>
+
+
+
+
+
+<select name="user" id="state">
+    <option>----Select User----</option>
+   </select>
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+jQuery(document).ready(function($) {
+    $("#first").on('change', function() {
+		
+	
+		
+	
+	
+		var	compy = $("#first").val();
+	
+	
+	
+	  $.ajax({
+              type:'POST',
+              url:'abbc.php',
+              data:{'compy':compy},
+              success:function(result){
+                 
+                  $('#state').html(result);
+                 
+              }
+          }); 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+})})
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						
+				
+				
+                   
+
+
+                     
+  </div>
+    
+ 
+ 
+  <div class="tab"> Date
+  
+  
+					
+					<div class="form-group">
+                      
+                      <input required  name="date"type="date" class="form-control"/>
+                    </div>
+					
+				
+				
+</div>
+
+<div class="tab"> Time
+   
+   
+    
+				      	<div class="form-group">
+                     
+                      <input required  name="time"type="time" class="form-control"/>
+                    </div>
+					
+				
+					
+				
+			
+                  <div class="box-footer">
+                    <input required  style="float:right;"type="submit" name="submit" value="Submit"class="btn btn-primary">
+                  </div>
+				  
+				  
+					
+					
+   </div>
+
+
+   
+  
+  </div>
+  
+  
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+  <!-- Circles which indicates the steps of the form: -->
+  <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+</form>
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").style.display = "none";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+</script>
+
+
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+	
+		  
+		  
+		  
+		  
+		  
+			
+			
+          </div>   <!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+     

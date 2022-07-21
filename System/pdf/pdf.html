@@ -1,0 +1,22 @@
+
+
+  
+  <script type="text/javascript" src="jspdf.umd.js"></script>
+
+  <script>
+    window.jsPDF = window.jspdf.jsPDF;
+	
+	
+	
+	var doc = new jsPDF();
+			
+doc.text(20, 20, 'Hello Danial!');
+doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+doc.addPage();
+doc.text(20, 20, 'Do you like that?');
+
+doc.save('abc.pdf');
+ 
+  </script>
+
+ 

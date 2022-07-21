@@ -1,0 +1,52 @@
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+
+swal("What do you want to do?", {
+  buttons: {
+   
+  catch: {
+         text: "Create Company",
+      value: "comp",
+     
+    
+    },
+      Home: true,
+    
+  
+    
+     defeat: {
+       text: "Create Customer",
+      value: "cus",
+    }
+   
+  }
+})
+
+
+.then((value) => {
+  switch (value) {
+ 
+ 
+      
+    case "comp":
+     window.location.assign("createoffice.php")
+      break;
+      
+        case "cus":
+      window.location.assign("createfuser.php")
+      break;
+ 
+ 
+    default:
+   window.location.assign("dashboard.php")
+  }
+});
+
+});
+
+ 
+ </script>
